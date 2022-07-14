@@ -7,7 +7,9 @@ export async function signup(req: Request, res: Response) {
     await authService.createUser(newUser)
     res.sendStatus(201)
 }
-export async function login(req: Request, res: Response) {
-
+export async function signin(req: Request, res: Response) {
+    const user = req.body
+    const token = await authService.login(user)
+    res.status(200).send(token)
 }
 
