@@ -20,3 +20,16 @@ export async function getAllCredentials(userId: number) {
     })
     return credentials
 }
+export async function getCredentialById(userId: number, id:number) {
+    const cryptr = new Cryptr(CRYPTR_KEY)
+    const credential = await credentialRepository.getCredentialById(id)
+    credential.password = cryptr.decrypt(credential.password)
+    if(credential.userId !== userId){
+        throw{
+            type:"unauthorized",
+            message:"invalid token for this credential"
+        }
+    }
+    delete credential.userId 
+    return credential
+}

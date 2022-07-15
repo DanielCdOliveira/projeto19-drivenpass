@@ -8,7 +8,7 @@ const credentialsRouter = Router()
 
 credentialsRouter.post("/credential/create",verifyToken, schemaVerifier(credentialSchema), createCredential)
 credentialsRouter.get("/credentials",verifyToken, getAllCredentials)
-credentialsRouter.get("/credential/:id", getCredentialById)
+credentialsRouter.get("/credential/:id",verifyToken, getCredentialById)
 credentialsRouter.delete("/credential/:id", deleteCredential)
 
 

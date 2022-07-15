@@ -8,3 +8,6 @@ export async function getAllCredentials(userId: number) {
     return await prisma.credential.findMany({ where: { userId }, 
         select: { id: true, url: true, userName: true, password: true } })
 }
+export async function getCredentialById(id: number) {
+    return await prisma.credential.findFirst({ where: { id } })
+}
