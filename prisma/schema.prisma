@@ -22,11 +22,11 @@ model User {
 
 model Credential {
   id       Int    @id @default(autoincrement())
-  title    String @unique
+  title    String 
   url      String
   userName String
   password String
-  userId   Int    @unique
+  userId   Int    
   creator  User   @relation(fields: [userId], references: [id])
 
   @@unique([title, userId])
