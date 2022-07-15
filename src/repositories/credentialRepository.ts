@@ -2,7 +2,15 @@ import { prisma } from "../config/database.js";
 import { CreateCredentialData } from "../interfaces/interfaces.js";
 
 export async function insertNewCredential(newCredential: CreateCredentialData) {
-    await prisma.credential.create({ data: newCredential })
+    try {
+            await prisma.credential.create({ data: newCredential })
+    } catch (error) {
+        throw{
+            type:"conflict",
+            message:"title already registered"
+        }
+    }
+
 }
 export async function getAllCredentials(userId: number) {
     return await prisma.credential.findMany({ where: { userId }, 
