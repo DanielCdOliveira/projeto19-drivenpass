@@ -37,8 +37,8 @@ export async function checkToken(authorization: string) {
             message:"invalid token"
         }
     }
-    const {userId} = jwt.verify(token, JWT) as any;
-    const {id} = await authRepository.getUserById(userId)
+    const data =  jwt.verify(token, JWT) as any; 
+    const {id} = await authRepository.getUserById(data.id)
     if(!id){
         throw {
             type:"not_found",
