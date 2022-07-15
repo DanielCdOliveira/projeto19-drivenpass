@@ -16,5 +16,19 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
+  credentials Credential[]
   @@map("users")
+}
+
+model Credential {
+  id       Int    @id @default(autoincrement())
+  title    String @unique
+  url      String
+  userName String
+  password String
+  userId   Int    @unique
+  creator  User   @relation(fields: [userId], references: [id])
+
+  @@unique([title, userId])
+  @@map("credentials")
 }

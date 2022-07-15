@@ -1,10 +1,8 @@
-import { User } from "@prisma/client";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+import { CreateUserData } from "../interfaces/interfaces.js"
 import * as authRepository from "../repositories/authRepository.js"
-
-export type CreateUserData = Omit<User, "id" | "createdAt">
 
 const SALT = parseInt(process.env.SALT)
 const JWT = process.env.JWT
@@ -23,11 +21,29 @@ export async function createUser(newUser: CreateUserData) {
 export async function login(user: CreateUserData) {
     const userDb = await authRepository.getUserByEmail(user.email)
     if (userDb && bcrypt.compareSync(user.password, userDb.password)) {
-        const token = jwt.sign({ ...userDb }, JWT);
+        const token = jwt.sign({id:userDb.id}, JWT);
         return token
     }
     throw {
         type: "unauthorized",
         message: `Incompatible username and password`
     }
+}
+export async function checkToken(authorization: string) {
+    const token = authorization?.replace("Bearer ", "").trim();
+    if (!token) {
+        throw {
+            type:"unauthorized",
+            message:"invalid token"
+        }
+    }
+    const {userId} = jwt.verify(token, JWT) as any;
+    const {id} = await authRepository.getUserById(userId)
+    if(!id){
+        throw {
+            type:"not_found",
+            message:"user not found"
+        }
+    }
+    return id
 }
