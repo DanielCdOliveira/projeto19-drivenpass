@@ -23,13 +23,21 @@ export async function getAllCredentials(userId: number) {
 export async function getCredentialById(userId: number, id:number) {
     const cryptr = new Cryptr(CRYPTR_KEY)
     const credential = await credentialRepository.getCredentialById(id)
+   if(!credential){
+    throw{
+        type:"not_found",
+        message:"credential not found"
+    }
+   }
     credential.password = cryptr.decrypt(credential.password)
     if(credential.userId !== userId){
         throw{
             type:"unauthorized",
             message:"invalid token for this credential"
         }
-    }
-    delete credential.userId 
+    } 
     return credential
+}
+export async function deleteCredential(id :number) {
+    await credentialRepository.deleteCredential(id)
 }
