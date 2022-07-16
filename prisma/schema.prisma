@@ -20,6 +20,7 @@ model User {
   notes       Note[]
   cards       Card[]
   @@map("users")
+  Wifi Wifi[]
 }
 
 model Credential {
@@ -61,6 +62,17 @@ model Card {
 
   @@unique([title, userId])
   @@map("cards")
+}
+
+model Wifi {
+  id       Int    @id @default(autoincrement())
+  title    String
+  wifiName String
+  password String
+  userId   Int
+  creator  User   @relation(fields: [userId], references: [id])
+
+  @@map("wifiConnections")
 }
 
 enum CardTypes {
