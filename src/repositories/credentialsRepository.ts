@@ -15,7 +15,6 @@ export async function insertNewCredential(newCredential: CreateCredentialData) {
 export async function getAllCredentials(userId: number) {
     return await prisma.credential.findMany({
         where: { userId },
-        select: { id: true, title:true, url: true, userName: true, password: true }
     })
 }
 export async function getCredentialById(id: number) {

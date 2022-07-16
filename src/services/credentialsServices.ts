@@ -1,8 +1,6 @@
 import { CreateCredentialData } from "../interfaces/interfaces.js";
 import Cryptr from "cryptr"
 
-import { decryptData } from "../utils/utils.js";
-
 const CRYPTR_KEY = process.env.CRYPTR
 
 import * as credentialRepository from "../repositories/credentialsRepository.js"

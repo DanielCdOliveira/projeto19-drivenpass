@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import * as credentialService from "../services/credentialsServices.js"
 
 export async function createCredential(req: Request, res: Response) {
-    // TODO ADICONAR UMA FUNÇAO QUE FAZ TRIM
     const userId = res.locals.userId
     const credential = req.body
     await credentialService.createNewCredential({ userId, ...credential })
