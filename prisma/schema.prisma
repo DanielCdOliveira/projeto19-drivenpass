@@ -17,18 +17,30 @@ model User {
   createdAt DateTime @default(now())
 
   credentials Credential[]
+  Note        Note[]
   @@map("users")
 }
 
 model Credential {
   id       Int    @id @default(autoincrement())
-  title    String 
+  title    String
   url      String
   userName String
   password String
-  userId   Int    
+  userId   Int
   creator  User   @relation(fields: [userId], references: [id])
 
   @@unique([title, userId])
   @@map("credentials")
+}
+
+model Note {
+  id      Int    @id @default(autoincrement())
+  title   String
+  text    String
+  userId  Int
+  creator User   @relation(fields: [userId], references: [id])
+
+  @@unique([title, userId])
+  @@map("notes")
 }
