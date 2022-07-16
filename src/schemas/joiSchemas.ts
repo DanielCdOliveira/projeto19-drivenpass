@@ -1,6 +1,6 @@
 import joi from "joi"
 
-import { CreateUserData, CreateCredentialData, CreateNoteData, CreateCardData, CreateWifiData } from "../interfaces/interfaces.js"
+import { CreateUserData, CreateCredentialData, CreateNoteData, CreateCardData, CreateWifiData, CreateDocumentData } from "../interfaces/interfaces.js"
 
 export const authSchema = joi.object<CreateUserData>({
     email: joi.string().email().required(),
@@ -31,4 +31,12 @@ export const wifiSchema = joi.object<CreateWifiData>({
     title: joi.string().min(1).required(),
     wifiName: joi.string().required(),
     password: joi.string().required()
+})
+export const documentSchema = joi.object<CreateDocumentData>({
+    name: joi.string().min(1).required(),
+    expeditionDate: joi.string().min(5).max(5).required(),
+    expirationDate: joi.string().min(5).max(5).required(),
+    registerNumber: joi.string().min(1).required(),
+    expeditionAgency: joi.string().min(1).required(),
+    documentType: joi.string().min(1).required(),
 })

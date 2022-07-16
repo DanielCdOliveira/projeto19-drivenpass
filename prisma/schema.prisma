@@ -19,8 +19,9 @@ model User {
   credentials Credential[]
   notes       Note[]
   cards       Card[]
+  Wifi        Wifi[]
+  Document    Document[]
   @@map("users")
-  Wifi Wifi[]
 }
 
 model Credential {
@@ -75,8 +76,28 @@ model Wifi {
   @@map("wifiConnections")
 }
 
+model Document {
+  id               Int           @id @default(autoincrement())
+  name             String
+  expeditionDate   String
+  expirationDate   String
+  registerNumber   String
+  expeditionAgency String
+  documentType     DocumentTypes
+  userId           Int
+  creator          User          @relation(fields: [userId], references: [id])
+
+  @@unique([documentType, userId])
+  @@map("documents")
+}
+
 enum CardTypes {
   credit
   debit
   credit_debit
+}
+
+enum DocumentTypes {
+  cnh
+  rg
 }
