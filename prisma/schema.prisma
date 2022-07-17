@@ -19,8 +19,8 @@ model User {
   credentials Credential[]
   notes       Note[]
   cards       Card[]
-  Wifi        Wifi[]
-  Document    Document[]
+  wifi        Wifi[]
+  documents    Document[]
   @@map("users")
 }
 

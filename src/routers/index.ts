@@ -5,6 +5,7 @@ import notesRouter from './notesRouter.js';
 import cardsRouter from './cardsRouter.js';
 import wifiRouter from './wifiRouter.js';
 import documentRouter from './documentsRouter.js';
+import alldataRouter from './alldataRouter.js';
 
 const router = Router();
 router.use(authRouter)
@@ -13,5 +14,6 @@ router.use(notesRouter)
 router.use(cardsRouter)
 router.use(wifiRouter)
 router.use(documentRouter)
+router.use(alldataRouter)
 
 export default router;

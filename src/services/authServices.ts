@@ -11,7 +11,7 @@ export async function createUser(newUser: CreateUserData) {
     const userExists = await authRepository.getUserByEmail(newUser.email)
     if (userExists) {
         throw {
-            type: "unauthorized",
+            type: "conflict",
             message: `${newUser.email} already registered`
         }
     }
