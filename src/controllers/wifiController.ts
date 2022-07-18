@@ -17,7 +17,6 @@ export async function getWifiById(req: Request, res: Response) {
     const userId = res.locals.userId
     const id = parseInt(req.params.id)
     const wifi = await wifiService.getWifiById(userId, id)
-    delete wifi.password
     res.status(200).send(wifi)
 }
 export async function deleteWifi(req: Request, res: Response) {

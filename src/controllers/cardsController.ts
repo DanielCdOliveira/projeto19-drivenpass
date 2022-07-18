@@ -17,7 +17,6 @@ export async function getCardById(req: Request, res: Response) {
     const userId = res.locals.userId
     const id = parseInt(req.params.id)
     const card = await cardsService.getCardById(userId, id)
-    delete card.password
     res.status(200).send(card)
 }
 export async function deleteCard(req: Request, res: Response) {

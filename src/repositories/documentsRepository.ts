@@ -4,7 +4,7 @@ import { CreateDocumentData } from "../interfaces/interfaces.js";
 export async function insertNewDocument(newDocument: CreateDocumentData) {
     try {
         await prisma.document.create({ data: newDocument })
-    } catch (error) {
+    } catch (error) {       
         throw {
             type: "conflict",
             message: "document type already registered"
